@@ -2,27 +2,21 @@ using UnityEngine;
 
 public class GoalTrigger : MonoBehaviour
 {
-    public GameObject goalText;
+    public GameObject endPanel;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (goalText != null)
+            if (endPanel != null)
             {
-                goalText.SetActive(true);
+                endPanel.SetActive(true);
 
-                GoalTextFade fadeScript = goalText.GetComponent<GoalTextFade>();
-                if (fadeScript != null)
+                CarController car = other.GetComponent<CarController>();
+                if (car != null)
                 {
-                    fadeScript.ShowText();
+                    car.canDrive = false;
                 }
-            }
-
-            CarController car = other.GetComponent<CarController>();
-            if (car != null)
-            {
-                car.canDrive = false;
             }
         }
     }
